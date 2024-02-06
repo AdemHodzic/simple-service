@@ -15,7 +15,9 @@
 
 from fastapi import FastAPI
 
-import uuid
+from typing import Dict, Any
+
+from user_service import create_user
 
 app = FastAPI()
 
@@ -23,3 +25,24 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
+
+
+@app.post("/signin")
+def signin():
+    return {"hello": "world"}
+
+
+@app.post("/signup")
+def signup(data: Dict[str, Any]):
+    email = data["email"]
+    password = data["password"]
+
+    res = create_user(email, password)
+
+    return True
+
+
+
+@app.post("/signout")
+def signout():
+    return {"hello": "world"}

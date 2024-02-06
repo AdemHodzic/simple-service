@@ -13,5 +13,14 @@
 # limitations under the License.
 # ==============================================================================
 """Database module."""
+import sqlite3
 
-import psycopg2
+def get_connection():
+    con = sqlite3.connect("users.db")
+    cur = con.cursor()
+    return cur
+
+def setup_table():
+    cur  = get_connection()
+    cur.execute("CREATE TABLE IF NOT EXISTS users(id text, email text, hash text);")
+
